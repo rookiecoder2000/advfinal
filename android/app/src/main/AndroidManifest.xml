@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rent_verse_final">
    <application
-        android:label="rent_verse_final"
+        android:label="RentVerse"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
