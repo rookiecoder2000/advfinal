@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rent_verse_final/views/forgot_password.dart';
+import 'package:rent_verse_final/views/onboarding.dart';
 import 'package:rent_verse_final/views/sign_in.dart';
+import 'package:rent_verse_final/views/sign_up.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +25,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
       ),
       getPages: [
-        GetPage(name: '/forgotpassword', page: () => ForgotPassword())
+        GetPage(name: '/forgotpassword', page: () => ForgotPassword()),
+        GetPage(name: '/signup', page: () => SignUpPage()),
+        GetPage(name: '/signin', page: () => SignInScreen()),
+        GetPage(name: '/onboarding', page: () => welcomePage())
       ],
       home: SignInScreen(),
     );

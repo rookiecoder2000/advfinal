@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rent_verse_final/misc/bungee_font.dart';
 import 'package:rent_verse_final/misc/poppins_font.dart';
+import 'package:rent_verse_final/misc/colors.dart';
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -9,10 +10,10 @@ class ForgotPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController _email = TextEditingController();
-    var colorScheme;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorScheme.purpleMuch,
+        backgroundColor: Colors.indigo,
         // actions: [],
       ),
       body: SingleChildScrollView(
@@ -37,7 +38,7 @@ class ForgotPassword extends StatelessWidget {
                 height: 15,
               ),
               poppinsFont(13, "Enter the email you used to sign up.",
-                  colorScheme.inputFieldsLabel, FontWeight.normal),
+                  Colors.grey, FontWeight.normal),
               SizedBox(
                 height: 20,
               ),

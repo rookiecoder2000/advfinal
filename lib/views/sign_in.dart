@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -116,6 +117,19 @@ class _SignInScreenState extends State<SignInScreen> {
                   style: TextStyle(fontSize: 13),
                 )),
             SizedBox(
+              height: 10,
+            ),
+            OutlinedButton(
+              onPressed: () {
+                Get.toNamed("/onboarding");
+              },
+              child: Text("Sign Up"),
+              style: OutlinedButton.styleFrom(
+                  minimumSize: Size(150, 40),
+                  primary: colorScheme.purpleMuch,
+                  side: BorderSide(color: colorScheme.purpleMuch)),
+            ),
+            SizedBox(
               height: 30,
             ),
             RichText(
@@ -135,7 +149,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           fontWeight: FontWeight.bold),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Get.toNamed("/forgotpassword");
+                          //  Get.toNamed("/forgotpassword");
                         })
                 ]))
           ],
