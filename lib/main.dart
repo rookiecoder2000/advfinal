@@ -1,10 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_verse_final/services/firebase_auth_methods.dart';
+import 'package:rent_verse_final/views/email_verification.dart';
 import 'package:rent_verse_final/views/forgot_password.dart';
+import 'package:rent_verse_final/views/landlord_main.dart';
 import 'package:rent_verse_final/views/onboarding.dart';
 import 'package:rent_verse_final/views/sign_in.dart';
 import 'package:rent_verse_final/views/sign_up.dart';
+import 'package:rent_verse_final/views/tenant_main.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,19 +25,54 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
-      getPages: [
-        GetPage(name: '/forgotpassword', page: () => ForgotPassword()),
-        GetPage(name: '/signup', page: () => SignUpPage()),
-        GetPage(name: '/signin', page: () => SignInScreen()),
-        GetPage(name: '/onboarding', page: () => welcomePage())
+    return MultiProvider(
+      providers: [
+        Provider<FirebaseAuthMethods>(
+          create: (_) => FirebaseAuthMethods(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+            create: (context) => context.read<FirebaseAuthMethods>().authState,
+            initialData: null)
       ],
-      home: SignInScreen(),
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.indigo,
+        ),
+        getPages: [
+          GetPage(name: '/forgotpassword', page: () => ForgotPassword()),
+          GetPage(name: '/signup', page: () => SignUpPage()),
+          GetPage(name: '/signin', page: () => SignInScreen()),
+          GetPage(name: '/onboarding', page: () => welcomePage()),
+          GetPage(name: '/tenantMain', page: () => TenantMainScreen()),
+          GetPage(name: '/landlordMain', page: () => LandLordMainScreen()),
+          GetPage(
+              name: '/emailverification', page: () => EmailVerificationSent())
+        ],
+        home: AuthWrapper(),
+      ),
     );
+  }
+}
+
+class AuthWrapper extends StatelessWidget {
+  const AuthWrapper({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
+    if (firebaseUser != null) {
+      return LandLordMainScreen();
+    }
+    return SignInScreen();
+
+    //   return StreamBuilder<User?>(
+    //       stream: FirebaseAuth.instance.authStateChanges(),
+    //       builder: (context, snapshot) {
+    //         //
+    //         if (snapshot.hasData && snapshot.data != null) {}
+    //       });
+    // }
   }
 }

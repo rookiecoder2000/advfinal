@@ -41,6 +41,11 @@ dependencies:
   firebase_core: ^1.15.0
   get: ^4.6.1
   flutter_svg: ^1.0.3
+  bloc: ^8.0.3
+  flutterfire_ui: ^0.4.0+3
+  packages_info: ^0.0.1-dev.1
+  provider: ^6.0.2
+  device_info_plus: ^3.2.3
  
 
 

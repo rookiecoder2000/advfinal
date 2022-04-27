@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:rent_verse_final/misc/bungee_font.dart';
 import 'package:rent_verse_final/misc/colors.dart';
 import 'package:rent_verse_final/misc/poppins_font.dart';
+import 'package:rent_verse_final/services/firebase_auth_methods.dart';
 
 class SignInScreen extends StatefulWidget {
   SignInScreen({Key? key}) : super(key: key);
@@ -17,6 +18,15 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool _obscureText = true;
+
+  //login user function
+  void loginUser() async {
+    FirebaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
+        email: emailController.text,
+        password: passwordController.text,
+        context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,21 +41,19 @@ class _SignInScreenState extends State<SignInScreen> {
             Container(
                 width: 300,
                 height: 150,
-                child: Image(image: AssetImage("assets/images/origlogo.png"))),
+                child: Image(image: AssetImage("assets/images/rent.ico"))),
             SizedBox(
               height: 20,
             ),
             Divider(
-              thickness: 3,
+              thickness: 0,
               color: colorScheme.activeStateMain,
             ),
             SizedBox(
               height: 10,
             ),
-            bungeeFont(
-                20, "RentVerse ", colorScheme.activeStateMain, FontWeight.bold),
-            bungeeFont(
-                30, "LOGIN ", colorScheme.activeStateMain, FontWeight.bold),
+            bungeeFont(20, "RentVerse ", Colors.blueAccent, FontWeight.bold),
+            bungeeFont(30, "LOGIN ", Colors.blueAccent, FontWeight.bold),
             SizedBox(
               height: 30,
             ),
@@ -108,9 +116,10 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
             ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    minimumSize: Size(150, 40),
-                    primary: colorScheme.purpleMuch),
-                onPressed: () {},
+                    minimumSize: Size(150, 40), primary: colorScheme.interface),
+                onPressed: () {
+                  loginUser();
+                },
                 icon: Icon(Icons.lock),
                 label: Text(
                   'Sign In',
@@ -126,8 +135,8 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Text("Sign Up"),
               style: OutlinedButton.styleFrom(
                   minimumSize: Size(150, 40),
-                  primary: colorScheme.purpleMuch,
-                  side: BorderSide(color: colorScheme.purpleMuch)),
+                  primary: colorScheme.interface,
+                  side: BorderSide(color: colorScheme.interface)),
             ),
             SizedBox(
               height: 30,
