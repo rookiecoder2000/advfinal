@@ -1,11 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:rent_verse_final/misc/bungee_font.dart';
 import 'package:rent_verse_final/misc/colors.dart';
 import 'package:rent_verse_final/misc/poppins_font.dart';
 import 'package:rent_verse_final/services/firebase_auth_methods.dart';
+import 'package:rent_verse_final/views/forgot_password.dart';
 
 class SignInScreen extends StatefulWidget {
   SignInScreen({Key? key}) : super(key: key);
@@ -18,10 +22,10 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool _obscureText = true;
-
+  String userID = "";
   //login user function
   void loginUser() async {
-    FirebaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
+    await FirebaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
         email: emailController.text,
         password: passwordController.text,
         context: context);
@@ -158,7 +162,11 @@ class _SignInScreenState extends State<SignInScreen> {
                           fontWeight: FontWeight.bold),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          //  Get.toNamed("/forgotpassword");
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => ForgotPassword()),
+                          //  );
                         })
                 ]))
           ],

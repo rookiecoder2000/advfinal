@@ -528,7 +528,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     minimumSize: Size(250, 40), primary: Colors.indigo),
                 onPressed: () {
                   //firebase auth
-                  Get.toNamed('signin');
+                  Get.toNamed('/signin');
                 },
                 child: Text("Proceed to Login Page"),
               ),

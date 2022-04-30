@@ -9,8 +9,10 @@ import 'package:rent_verse_final/views/sign_up.dart';
 class FirebaseAuthMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth;
+
   FirebaseAuthMethods(this._auth);
   User get user => _auth.currentUser!;
+
   Future<String> signUpWithEmail(
       {required String email,
       required String password,
@@ -60,6 +62,7 @@ class FirebaseAuthMethods {
   Future<void> signOut(BuildContext context) async {
     try {
       await _auth.signOut();
+      Get.toNamed('/signin');
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
     }
@@ -73,15 +76,6 @@ class FirebaseAuthMethods {
       required BuildContext context}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      //if not verified send email ==
-      if (!_auth.currentUser!.emailVerified) {
-        await sendEmailVerification(context);
-        //create page that shows ui for sending email v
-        Get.toNamed('/emailverification');
-        //mag error
-      } else {
-        Get.toNamed('/landlordMain');
-      }
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
     }
