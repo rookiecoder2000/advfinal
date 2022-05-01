@@ -7,7 +7,9 @@ import 'package:provider/provider.dart';
 import 'package:rent_verse_final/services/firebase_auth_methods.dart';
 import 'package:rent_verse_final/views/email_verification.dart';
 import 'package:rent_verse_final/views/forgot_password.dart';
+import 'package:rent_verse_final/views/landlord1_profile.dart';
 import 'package:rent_verse_final/views/landlord_main.dart';
+import 'package:rent_verse_final/views/landlord_profile.dart';
 import 'package:rent_verse_final/views/loading.dart';
 
 import 'package:rent_verse_final/views/onboarding.dart';
@@ -50,6 +52,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/onboarding', page: () => welcomePage()),
           GetPage(name: '/tenantMain', page: () => TenantMainScreen()),
           GetPage(name: '/landlordMain', page: () => LandLordMainScreen()),
+          GetPage(name: '/landlordProfile', page: () => LandlordProfile()),
+          GetPage(name: '/landlordProfile1', page: () => LandlordProfile1()),
           GetPage(
               name: '/emailverification', page: () => EmailVerificationSent()),
           GetPage(name: '/load', page: () => Load())

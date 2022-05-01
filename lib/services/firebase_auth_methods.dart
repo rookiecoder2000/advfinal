@@ -25,10 +25,12 @@ class FirebaseAuthMethods {
       UserCredential cred = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       //add to firestore databse
-      _firestore
-          .collection('users')
-          .doc(cred.user!.uid)
-          .set({'uid': cred.user!.uid, 'email': email, 'userRole': userRole});
+      _firestore.collection('users').doc(cred.user!.uid).set({
+        'uid': cred.user!.uid,
+        'email': email,
+        'userRole': userRole,
+        'isVerified': "unverified"
+      });
       res = "Success!, Email verification sent!";
       sendEmailVerification(context);
     } on FirebaseAuthException catch (e) {

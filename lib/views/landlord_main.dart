@@ -6,15 +6,6 @@ import 'package:rent_verse_final/views/landlord_manageunit.dart';
 import 'package:rent_verse_final/misc/colors.dart';
 import 'package:rent_verse_final/widgets/navigation_drawer.dart';
 
-//access user
-// ElevatedButton(
-//     onPressed: () {
-//       //
-//       context.read<FirebaseAuthMethods>().signOut(context);
-//     },
-//     child: Text("Sign out"))
-// final user = context.read<FirebaseAuthMethods>().user;
-//return Scaffold(
 class LandLordMainScreen extends StatefulWidget {
   LandLordMainScreen({Key? key}) : super(key: key);
 

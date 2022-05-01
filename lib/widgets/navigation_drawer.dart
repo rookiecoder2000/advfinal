@@ -1,26 +1,76 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:rent_verse_final/misc/colors.dart';
+import 'package:rent_verse_final/services/firebase_auth_methods.dart';
 
-class NavigationDrawerWidgetLandlords extends StatelessWidget {
+class NavigationDrawerWidgetLandlords extends StatefulWidget {
   NavigationDrawerWidgetLandlords({Key? key}) : super(key: key);
 
   @override
+  State<NavigationDrawerWidgetLandlords> createState() =>
+      _NavigationDrawerWidgetLandlordsState();
+}
+
+class _NavigationDrawerWidgetLandlordsState
+    extends State<NavigationDrawerWidgetLandlords> {
+  String email = "";
+  String fn = "";
+  bool isVerified = false;
+  @override
+  void initState() {
+    super.initState();
+    //get user info
+
+    final user = context.read<FirebaseAuthMethods>().user;
+    var userid = user.uid;
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        Map<String, dynamic> data =
+            documentSnapshot.data() as Map<String, dynamic>;
+        //check if verified
+        var v = data['isVerified'];
+        if (v == "verified") {
+          setState(() {
+            isVerified = true;
+          });
+        } else if (v == "unverified") {
+          setState(() {
+            isVerified = false;
+            fn = "Hello, user.";
+          });
+        }
+        setState(() {
+          email = data['email'];
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final name = "Joah Cyrus";
-    final email = "joah@gmail.com";
     var urlImage = "assets/images/";
     return Drawer(
       child: Material(
-        color: colorScheme.purpleMuch,
+        color: colorScheme.interface,
         child: ListView(
           padding: EdgeInsets.only(left: 20),
           children: <Widget>[
             buildHeader(urlImage = urlImage,
-                name: name,
+                name: fn,
                 email: email,
                 //add
-                onClicked: () => Get.toNamed("/landlordProfile")),
+                onClicked: isVerified
+
+                    //samtingwong
+                    ? () => Get.toNamed("/landlordProfile1")
+                    : () => Get.toNamed("/landlordProfile")),
             const SizedBox(
               height: 48,
             ),
@@ -49,7 +99,10 @@ class NavigationDrawerWidgetLandlords extends StatelessWidget {
             SizedBox(
               height: 180,
             ),
-            buildMenuItem(text: 'Logout', icon: Icons.logout),
+            buildMenuItem(
+                onClicked: () => selectedItem(context, 4),
+                text: 'Logout',
+                icon: Icons.logout),
           ],
         ),
       ),
@@ -76,10 +129,13 @@ class NavigationDrawerWidgetLandlords extends StatelessWidget {
     Navigator.of(context).pop();
     switch (i) {
       case 0:
-        // Get.toNamed("/landlordAppointments");
+        Get.toNamed("/landlordAppointments");
         break;
       case 2:
-        //  Get.toNamed("/landlordTenantsList");
+        Get.toNamed("/landlordTenantsList");
+        break;
+      case 4:
+        context.read<FirebaseAuthMethods>().signOut(context);
         break;
     }
   }
@@ -98,7 +154,21 @@ class NavigationDrawerWidgetLandlords extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 30,
-                backgroundImage: AssetImage("assets/images/origlogo.png"),
+                backgroundImage: AssetImage("assets/images/ninja.png"),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Icon(
+                    isVerified ? Icons.verified_user : Icons.warning,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ],
               ),
               SizedBox(
                 width: 20,
@@ -114,23 +184,9 @@ class NavigationDrawerWidgetLandlords extends StatelessWidget {
                     height: 4,
                   ),
                   Text(email,
-                      style: TextStyle(fontSize: 15, color: Colors.white)),
+                      style: TextStyle(fontSize: 12, color: Colors.white)),
                 ],
               ),
-              SizedBox(
-                width: 40,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Icon(
-                    Icons.verified_user,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                ],
-              )
             ],
           ),
         )),
