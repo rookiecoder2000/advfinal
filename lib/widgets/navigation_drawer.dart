@@ -39,6 +39,7 @@ class _NavigationDrawerWidgetLandlordsState
         if (v == "verified") {
           setState(() {
             isVerified = true;
+            fn = data['firstName'];
           });
         } else if (v == "unverified") {
           setState(() {

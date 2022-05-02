@@ -12,6 +12,34 @@ class FirebaseAuthMethods {
 
   FirebaseAuthMethods(this._auth);
   User get user => _auth.currentUser!;
+  //verification phase
+  Future<void> addLandlordCredential(
+      {required BuildContext context,
+      required String firstName,
+      required String lastName,
+      required String occupation,
+      required String birthdate,
+      required String age,
+      required String gender,
+      required String phone,
+      required String telephone,
+      required String address,
+      required String city,
+      required String postalCode}) async {
+    try {
+      //add
+      var currentUserID = _auth.currentUser!.uid;
+      _firestore.collection('users').doc(currentUserID).update({
+        'isVerified': "verified",
+        'firstName': firstName,
+        'lastName': lastName
+      });
+
+      //update verification status to verified
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   Future<String> signUpWithEmail(
       {required String email,

@@ -16,6 +16,7 @@ import 'package:rent_verse_final/views/onboarding.dart';
 import 'package:rent_verse_final/views/sign_in.dart';
 import 'package:rent_verse_final/views/sign_up.dart';
 import 'package:rent_verse_final/views/tenant_main.dart';
+import 'package:rent_verse_final/views/verified_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +57,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/landlordProfile1', page: () => LandlordProfile1()),
           GetPage(
               name: '/emailverification', page: () => EmailVerificationSent()),
-          GetPage(name: '/load', page: () => Load())
+          GetPage(name: '/load', page: () => Load()),
+          GetPage(name: '/verified', page: () => UserVerified())
         ],
         home: AuthWrapper(),
       ),
