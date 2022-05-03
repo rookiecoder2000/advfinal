@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +19,18 @@ class LandlordProfile extends StatefulWidget {
 
 //if not verified then stepper if verified return edit2
 class _LandlordProfileState extends State<LandlordProfile> {
+//image picker
+  PlatformFile? pickedFile;
+  Future selectFile() async {
+    final result = await FilePicker.platform.pickFiles();
+    if (result == null) return;
+    setState(() {
+      pickedFile = result.files.first;
+    });
+  }
+
+  Future uploadFile() async {}
+
   bool isCompleted = false;
   int currentStep = 0;
   DateTime _dateTime = DateTime.now();
@@ -355,7 +370,7 @@ class _LandlordProfileState extends State<LandlordProfile> {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             )),

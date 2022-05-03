@@ -8,10 +8,32 @@ class LandlordProfile1 extends StatefulWidget {
 }
 
 class _LandlordProfile1State extends State<LandlordProfile1> {
+  bool editMode = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text("Diri tung maka edit jud sa profile gud"),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+            elevation: 0,
+            title: editMode ? Text("Edit Profile") : Text("My Profile"),
+            centerTitle: true,
+            actions: []),
+        body: SingleChildScrollView(
+            child: Column(
+          children: [
+            Container(
+              //temporary only
+              color: Colors.indigo,
+              width: 50,
+              height: 50.0,
+              child: CircleAvatar(
+                radius: 30,
+                backgroundImage: AssetImage("assets/images/ninja.png"),
+              ),
+            )
+          ],
+        )),
+      ),
     );
   }
 }

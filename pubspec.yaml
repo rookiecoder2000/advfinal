@@ -50,6 +50,8 @@ dependencies:
   image_picker:
   date_format: ^2.0.6
   intl:
+  firebase_storage: 
+  file_picker:
  
 
 

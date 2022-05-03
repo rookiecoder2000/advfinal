@@ -57,7 +57,19 @@ class FirebaseAuthMethods {
         'uid': cred.user!.uid,
         'email': email,
         'userRole': userRole,
-        'isVerified': "unverified"
+        'isVerified': "unverified",
+        'firstName': "",
+        'lastName': "",
+        'occupation': "",
+        'birthdate': "",
+        'age': "",
+        'gender': "",
+        'phone': "",
+        'telephone': "",
+        'address': "",
+        'city': "",
+        'postalCode': "",
+        //image
       });
       res = "Success!, Email verification sent!";
       sendEmailVerification(context);
