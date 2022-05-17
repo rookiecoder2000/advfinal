@@ -46,7 +46,7 @@ class _LandlordProfileState extends State<LandlordProfile> {
   TextEditingController _birthDateController = TextEditingController();
   TextEditingController _firstnameController = TextEditingController();
   TextEditingController _lastnameController = TextEditingController();
-  TextEditingController _occupationController = TextEditingController();
+
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _telephoneController = TextEditingController();
   TextEditingController _homeAddressController = TextEditingController();
@@ -61,7 +61,6 @@ class _LandlordProfileState extends State<LandlordProfile> {
         context: context,
         firstName: _firstnameController.text,
         lastName: _lastnameController.text,
-        occupation: _occupationController.text,
         birthdate: _birthDateController.text,
         age: _ageController.text,
         gender: gender,
@@ -97,8 +96,7 @@ class _LandlordProfileState extends State<LandlordProfile> {
                       _birthDateController.text == "" ||
                       gender == "" ||
                       _firstnameController.text == "" ||
-                      _lastnameController.text == "" ||
-                      _occupationController.text == "") {
+                      _lastnameController.text == "") {
                     Get.snackbar(
                         "Missing fields", "Please fill up all the fields first",
                         snackPosition: SnackPosition.TOP,
@@ -203,25 +201,6 @@ class _LandlordProfileState extends State<LandlordProfile> {
                     decoration: InputDecoration(
                       labelText: 'Lastname',
                       hintText: 'Enter your last name',
-
-                      // Enabled Border
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.indigo,
-                        ),
-                      ),
-                      // Focused Border
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.indigoAccent, width: 3),
-                      ),
-                    ),
-                  ),
-                  TextField(
-                    controller: _occupationController,
-                    decoration: InputDecoration(
-                      labelText: 'Occupation',
-                      hintText: 'Enter your job name',
 
                       // Enabled Border
                       enabledBorder: const UnderlineInputBorder(

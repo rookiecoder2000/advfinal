@@ -60,25 +60,48 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/load', page: () => Load()),
           GetPage(name: '/verified', page: () => UserVerified())
         ],
-        home: AuthWrapper(),
+        // home: AuthWrapper(),
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasData) {
+                return Load();
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text("${snapshot.error}"),
+                );
+              }
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.indigo,
+                ),
+              );
+            }
+            return SignInScreen();
+          },
+        ),
       ),
     );
   }
 }
 
-class AuthWrapper extends StatelessWidget {
-  const AuthWrapper({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User?>();
-    if (firebaseUser != null) {
-      if (!firebaseUser.emailVerified) {
-        return EmailVerificationSent();
-      } else if (firebaseUser.emailVerified) {
-        return Load();
-      }
-    }
-    return SignInScreen();
-  }
-}
+// class AuthWrapper extends StatelessWidget {
+//   const AuthWrapper({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final firebaseUser = context.watch<User?>();
+//     if (firebaseUser != null) {
+//       if (!firebaseUser.emailVerified) {
+//         return EmailVerificationSent();
+//       } else if (firebaseUser.emailVerified) {
+//         return Load();
+//       }
+//     }
+//     return SignInScreen();
+//   }
+

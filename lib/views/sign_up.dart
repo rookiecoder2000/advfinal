@@ -64,6 +64,30 @@ class _SignUpPageState extends State<SignUpPage> {
           duration: Duration(seconds: 1), curve: Curves.easeIn);
     }
   }
+//landlord
+
+  void signUpUserLandlord() async {
+    //
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await FirebaseAuthMethods(FirebaseAuth.instance)
+        .signUpWithEmailLandlord1(
+            email: _emailController.text,
+            password: _passwordController.text,
+            userRole: userRole,
+            context: context);
+
+    setState(() {
+      _isLoading = false;
+    });
+    if (res != "Success!, Email verification sent!") {
+    } else {
+      //  disposeControllers();
+      controllerPage.nextPage(
+          duration: Duration(seconds: 1), curve: Curves.easeIn);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -467,7 +491,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                     colorText: Colors.white);
                               } else if (_passwordController.text ==
                                   _confirmPasswordController.text) {
-                                signUpUser();
+                                if (userRole == "Tenant") {
+                                  signUpUser();
+                                } else if (userRole == "Landlord") {
+                                  signUpUserLandlord();
+                                }
                               }
                             }
                           },

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:rent_verse_final/services/auth_service.dart';
 import 'package:rent_verse_final/services/firebase_auth_methods.dart';
 import 'package:rent_verse_final/views/landlord_main.dart';
+import 'package:rent_verse_final/views/sign_in.dart';
 import 'package:rent_verse_final/views/tenant_main.dart';
 
 class Load extends StatefulWidget {
@@ -34,7 +35,8 @@ class _LoadState extends State<Load> {
         }
 
         if (snapshot.hasData && !snapshot.data!.exists) {
-          return Text("Document does not exist");
+          return Text("Something went wrong");
+          //return SignInScreen();
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
@@ -54,6 +56,9 @@ class _LoadState extends State<Load> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("Signing in..."),
+              SizedBox(
+                height: 20,
+              ),
               CircularProgressIndicator(
                 color: Colors.indigo,
               )

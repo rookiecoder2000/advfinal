@@ -21,9 +21,10 @@ class _LandLordMainScreenState extends State<LandLordMainScreen> {
         child: Text("Analytics"),
       ),
     ),
-    Container(
-      child: Center(
-        child: Text("asd"),
+    //tenant list
+    Scaffold(
+      body: SafeArea(
+        child: Text(""),
       ),
     ),
     ManageUnits(),

@@ -52,6 +52,7 @@ dependencies:
   intl:
   firebase_storage: 
   file_picker:
+  uuid: ^3.0.6
  
 
 

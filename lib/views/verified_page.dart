@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class UserVerified extends StatelessWidget {
@@ -7,20 +8,14 @@ class UserVerified extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: []),
-      body: Column(
-        children: [
-          Text("Congrats you are fully verified"),
-          SizedBox(
-            height: 20,
+        body: Column(
+      children: [
+        Expanded(
+          child: Container(
+            child: SvgPicture.asset('assets/images/verification.svg'),
           ),
-          ElevatedButton(
-              onPressed: () {
-                Get.toNamed('/landlordProfile1');
-              },
-              child: Text("My Profile"))
-        ],
-      ),
-    );
+        ),
+      ],
+    ));
   }
 }

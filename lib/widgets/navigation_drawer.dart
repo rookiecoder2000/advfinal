@@ -19,6 +19,8 @@ class _NavigationDrawerWidgetLandlordsState
   String email = "";
   String fn = "";
   bool isVerified = false;
+  String dpUrl = "";
+  bool hasDp = false;
   @override
   void initState() {
     super.initState();
@@ -49,6 +51,12 @@ class _NavigationDrawerWidgetLandlordsState
         }
         setState(() {
           email = data['email'];
+          dpUrl = data['photoUrl'];
+          if (dpUrl == "") {
+            hasDp = false;
+          } else {
+            hasDp = true;
+          }
         });
       }
     });
@@ -75,25 +83,27 @@ class _NavigationDrawerWidgetLandlordsState
             const SizedBox(
               height: 48,
             ),
-            buildMenuItem(
-                text: 'Appointments',
-                icon: Icons.book_online,
-                onClicked: () => selectedItem(context, 0)),
             SizedBox(
               height: 16,
             ),
-            buildMenuItem(text: 'Messages', icon: Icons.message),
+            buildMenuItem(
+                text: 'Messages',
+                icon: Icons.message,
+                onClicked: () => selectedItem(context, 0)),
             SizedBox(
               height: 16,
             ),
             buildMenuItem(
                 text: 'Current Tenants',
                 icon: Icons.groups,
-                onClicked: () => selectedItem(context, 2)),
+                onClicked: () => selectedItem(context, 1)),
             SizedBox(
               height: 16,
             ),
-            buildMenuItem(text: 'Your location', icon: Icons.map),
+            buildMenuItem(
+                text: 'Deactivate Account',
+                icon: Icons.delete,
+                onClicked: () => selectedItem(context, 2)),
             Divider(
               color: Colors.white70,
             ),
@@ -153,10 +163,16 @@ class _NavigationDrawerWidgetLandlordsState
           padding: const EdgeInsets.only(top: 30),
           child: Row(
             children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage("assets/images/ninja.png"),
-              ),
+              hasDp
+                  ? CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(dpUrl),
+                    )
+                  : CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                          "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1031&q=80"),
+                    ),
               SizedBox(
                 width: 5,
               ),
